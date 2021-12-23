@@ -1,9 +1,9 @@
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 from PyQt5.QtCore import Qt, QStringListModel
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 from encoder.inference import plot_embedding_as_heatmap
 from toolbox.utterance import Utterance
 from pathlib import Path
@@ -617,6 +617,19 @@ class UI(QDialog):
         self.token_slider.valueChanged.connect(lambda s: self.token_value_label.setNum(s))
         layout_seed.addWidget(self.token_value_label, 2, 1)
         layout_seed.addWidget(self.token_slider, 2, 3)
+
+        self.length_slider = QSlider(Qt.Horizontal)
+        self.length_slider.setTickInterval(1)
+        self.length_slider.setFocusPolicy(Qt.NoFocus)
+        self.length_slider.setSingleStep(1)
+        self.length_slider.setRange(1, 10)
+        self.length_value_label = QLabel("2")
+        self.length_slider.setValue(2)
+        layout_seed.addWidget(QLabel("MaxLength(最大句长):"), 3, 0)
+
+        self.length_slider.valueChanged.connect(lambda s: self.length_value_label.setNum(s))
+        layout_seed.addWidget(self.length_value_label, 3, 1)
+        layout_seed.addWidget(self.length_slider, 3, 3)
 
         gen_layout.addLayout(layout_seed)
 
