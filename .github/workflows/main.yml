@@ -31,6 +31,6 @@ jobs:
             - name: Merge upstream/main
               run: |
                   git merge upstream/main --allow-unrelated-historie
-            - name: Finilly pushing the repo
+            - name: Finally pushing the repo
               run: |
                   git push origin main
