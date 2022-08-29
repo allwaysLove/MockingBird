@@ -1,0 +1,31 @@
+name: "Auto UpStream" 
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '5 8 1 * *'
+    repository_dispatch:
+        types: start_action
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id || github.actor == 'allwaysLove'
+
+        steps:
+            - name: Getting the repo
+              uses: actions/checkout@v2
+
+            - name: Adding git info
+              run: |
+                  git config --global user.name "Github Action"
+                  git config --global user.email "github-action@example.com"
+            - name: Fetch Upstream
+              run: |
+                  git fetch upstream
+            - name: Merge upstream/main
+              run: |
+                  git merge upstream/main
+            - name: Finilly pushing the repo
+              run: |
+                  git push origin main
