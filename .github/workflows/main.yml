@@ -15,7 +15,12 @@ jobs:
         steps:
             - name: Getting the repo
               uses: actions/checkout@v2
-
+            - name: Re setting upstream url
+              run: |
+                  git remote add upstream https://github.com/babysor/MockingBird.git
+            - name: Remote List
+              run: |
+                  git remote -v
             - name: Adding git info
               run: |
                   git config --global user.name "Github Action"
